@@ -2,8 +2,10 @@ package guru.springframework.msscbrewery.web.services;
 
 import guru.springframework.msscbrewery.web.model.BeerDTO;
 import java.util.UUID;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class BeerServiceImpl implements BeerService {
 
@@ -15,4 +17,22 @@ public class BeerServiceImpl implements BeerService {
         .beerStyle("Pale Ale")
         .build();
   }
+
+  @Override
+  public BeerDTO saveNewBeer(BeerDTO beerDTO) {
+    return BeerDTO.builder()
+        .id(UUID.randomUUID())
+        .build();
+  }
+
+  @Override
+  public void updateBeer(UUID beerId, BeerDTO beerDTO) {
+    // to do impl
+  }
+
+  @Override
+  public void deleteById(UUID beerId) {
+    log.debug("Deleting a beer...");
+  }
+
 }
