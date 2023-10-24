@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-@Deprecated
+/**
+ * @deprecated (when, why, refactoring advice...)
+ */
+@Deprecated(since = "0.0.1")
 @RestController
 @RequestMapping("/api/v1/beer")
 public class BeerController {

@@ -1,7 +1,8 @@
 package guru.springframework.msscbrewery.web.controller;
 
-import guru.springframework.msscbrewery.web.model.CustomerDTO;
 import guru.springframework.msscbrewery.services.CustomerService;
+import guru.springframework.msscbrewery.web.model.CustomerDTO;
+import jakarta.validation.Valid;
 import java.util.UUID;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -33,20 +34,20 @@ public class CustomerController {
   }
 
   @PostMapping
-  public ResponseEntity handlePost(@RequestBody CustomerDTO customerDTO) {
+  public ResponseEntity handlePost(@Valid @RequestBody CustomerDTO customerDTO) {
     CustomerDTO savedCustomerDTO = customerService.saveNewCustomer(customerDTO);
 
     HttpHeaders headers = new HttpHeaders();
     //todo add hostname to url
     headers.add("Location", "/api/v1/customer/" + savedCustomerDTO.getId().toString());
 
-    return new ResponseEntity(headers, HttpStatus.CREATED);
+    return new ResponseEntity<>(headers, HttpStatus.CREATED);
   }
 
   @PutMapping("/{customerId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void handleUpdate(@PathVariable("customerId") UUID customerId,
-      @RequestBody CustomerDTO customerDTO) {
+      @Valid @RequestBody CustomerDTO customerDTO) {
     customerService.updateCustomer(customerId, customerDTO);
   }
 
@@ -55,5 +56,6 @@ public class CustomerController {
   public void deleteCustomer(@PathVariable("customerId") UUID customerId) {
     customerService.deleteById(customerId);
   }
+
 
 }

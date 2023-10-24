@@ -15,7 +15,7 @@ public class BeerServiceV2Impl implements
 
   @Override
   public BeerDTOV2 saveNewBeer(BeerDTOV2 beerDTO) {
-    return null;
+    return BeerDTOV2.builder().id(UUID.randomUUID()).build();
   }
 
   @Override
