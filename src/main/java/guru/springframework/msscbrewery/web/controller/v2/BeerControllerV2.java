@@ -1,7 +1,7 @@
 package guru.springframework.msscbrewery.web.controller.v2;
 
 import guru.springframework.msscbrewery.web.model.v2.BeerDTOV2;
-import guru.springframework.msscbrewery.web.services.v2.BeerServiceV2;
+import guru.springframework.msscbrewery.services.v2.BeerServiceV2;
 import java.util.UUID;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -42,14 +42,14 @@ public class BeerControllerV2 {
     return new ResponseEntity(headers, HttpStatus.CREATED);
   }
 
-  @PutMapping("{/{beerId}")
+  @PutMapping("/{beerId}")
   public ResponseEntity handleUpdate(@PathVariable("beerId") UUID beerId,
       @RequestBody BeerDTOV2 beerDTO) {
     beerServiceV2.updateBeer(beerId, beerDTO);
     return new ResponseEntity(HttpStatus.NO_CONTENT);
   }
 
-  @DeleteMapping("{/{beerId}")
+  @DeleteMapping("/{beerId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteBeer(@PathVariable("beerId") UUID beerId) {
     beerServiceV2.deleteById(beerId);

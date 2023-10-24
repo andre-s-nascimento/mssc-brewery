@@ -1,7 +1,7 @@
 package guru.springframework.msscbrewery.web.controller;
 
 import guru.springframework.msscbrewery.web.model.CustomerDTO;
-import guru.springframework.msscbrewery.web.services.CustomerService;
+import guru.springframework.msscbrewery.services.CustomerService;
 import java.util.UUID;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -43,14 +43,14 @@ public class CustomerController {
     return new ResponseEntity(headers, HttpStatus.CREATED);
   }
 
-  @PutMapping("{/{customerId}")
+  @PutMapping("/{customerId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void handleUpdate(@PathVariable("customerId") UUID customerId,
       @RequestBody CustomerDTO customerDTO) {
     customerService.updateCustomer(customerId, customerDTO);
   }
 
-  @DeleteMapping("{/{customerId}")
+  @DeleteMapping("/{customerId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteCustomer(@PathVariable("customerId") UUID customerId) {
     customerService.deleteById(customerId);

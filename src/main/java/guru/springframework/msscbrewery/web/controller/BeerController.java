@@ -1,7 +1,8 @@
 package guru.springframework.msscbrewery.web.controller;
 
 import guru.springframework.msscbrewery.web.model.BeerDTO;
-import guru.springframework.msscbrewery.web.services.BeerService;
+import guru.springframework.msscbrewery.services.BeerService;
+import jakarta.validation.Valid;
 import java.util.UUID;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -33,7 +34,7 @@ public class BeerController {
   }
 
   @PostMapping
-  public ResponseEntity handlePost(@RequestBody BeerDTO beerDTO) {
+  public ResponseEntity handlePost(@Valid @RequestBody BeerDTO beerDTO) {
     BeerDTO savedDTO = beerService.saveNewBeer(beerDTO);
 
     HttpHeaders headers = new HttpHeaders();
@@ -43,14 +44,14 @@ public class BeerController {
     return new ResponseEntity(headers, HttpStatus.CREATED);
   }
 
-  @PutMapping("{/{beerId}")
+  @PutMapping("/{beerId}")
   public ResponseEntity handleUpdate(@PathVariable("beerId") UUID beerId,
-      @RequestBody BeerDTO beerDTO) {
+      @Valid @RequestBody BeerDTO beerDTO) {
     beerService.updateBeer(beerId, beerDTO);
     return new ResponseEntity(HttpStatus.NO_CONTENT);
   }
 
-  @DeleteMapping("{/{beerId}")
+  @DeleteMapping("/{beerId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteBeer(@PathVariable("beerId") UUID beerId) {
     beerService.deleteById(beerId);
